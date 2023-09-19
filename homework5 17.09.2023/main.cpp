@@ -18,6 +18,11 @@ int main() {
    secondStr.Print();
    cout << endl << endl;
 
+   if (firstStr.MyStrStr("ello"))
+	   cout << "Подстрока найдена!" << endl << endl;
+   else
+	   cout << "Подстрока не найдена!" << endl << endl;
+
    cout << "MyStrStr (поиск подстроки в строке): " << endl;
    bool rezStr = firstStr.MyStrStr("llo");
    if (rezStr)
@@ -56,6 +61,11 @@ int main() {
    MyString test2;
    test2 = test1;
    test2.Print();
+
+   cout << test1 << endl;
+   cin >> test1;
+
+   cout << test1 << endl;
 
    return 0;
 }

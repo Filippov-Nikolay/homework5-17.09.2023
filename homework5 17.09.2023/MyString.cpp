@@ -1,21 +1,21 @@
-#include <iostream>
+п»ї#include <iostream>
 #include "MyString.h"
 
 using namespace std;
 
 
-// Конструкторы / Деструктор
-// Создаёт строку длиной 80 символов
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ / Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
+// РЎРѕР·РґР°С‘С‚ СЃС‚СЂРѕРєСѓ РґР»РёРЅРѕР№ 80 СЃРёРјРІРѕР»РѕРІ
 MyString::MyString() {
 	lenght = 80;
 	str = new char[lenght];
 }
-// Создаёт строку произвольного размера
+// РЎРѕР·РґР°С‘С‚ СЃС‚СЂРѕРєСѓ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРіРѕ СЂР°Р·РјРµСЂР°
 MyString::MyString(int size) {
 	lenght = size;
 	str = new char[lenght];
 }
-// Создаёт строку и инициализирует её строкой от пользователя
+// РЎРѕР·РґР°С‘С‚ СЃС‚СЂРѕРєСѓ Рё РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РµС‘ СЃС‚СЂРѕРєРѕР№ РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 MyString::MyString(const char* input) {
 	lenght = strlen(input) + 1;
 	str = new char[lenght];
@@ -24,6 +24,7 @@ MyString::MyString(const char* input) {
 MyString::~MyString() {
 	delete[] str;
 }
+
 
 void MyString::Input() {
 	char buff[100];
@@ -34,40 +35,50 @@ void MyString::Input() {
 	str = new char[strlen(buff) + 1];
 	strcpy_s(str, strlen(buff) + 1, buff);
 }
-
 void MyString::Print() const {
 	cout << str;
 }
 
-// Копирование строки
+
+// Р“Р»СѓР±РѕРєРѕРµ РєРѕРїРёСЂРѕРІР°РЅРёРµ (РѕРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІРѕРµРЅРёСЏ)
 void MyString::MyStrCpy(MyString& obj) {
 	str = new char[strlen(obj.str) + 1];
 	strcpy_s(str, strlen(obj.str) + 1, obj.str);
 
 	lenght = obj.lenght;
 }
-
-// Поиск подстроки в строке (РАЗОБРАТЬ)
+// РџРѕРёСЃРє РїРѕРґСЃС‚СЂРѕРєРё РІ СЃС‚СЂРѕРєРµ
 bool MyString::MyStrStr(const char* str) {
-	
+	int i = 0, j = 0;
+
+	while (this->str[i] != '\0') {
+		if (this->str[i] == str[j]) {
+			while (this->str[i] == str[j]) {
+				i++;
+				j++;
+			}
+
+			if (str[j] == '\0')
+				return true;
+		}
+		else
+			i++;
+	}
 
 	return false;
 }
-
-// Поиск символа в строке
+// РџРѕРёСЃРє СЃРёРјРІРѕР»Р° РІ СЃС‚СЂРѕРєРµ
 int MyString::MyChr(char c) {
 	for (int i = 0, j = 0; i < strlen(str) + 1; i++)
 		if (str[i] == c)
 			return i;
 	return -1;
 }
-
-// Возвращает длину строки
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР»РёРЅСѓ СЃС‚СЂРѕРєРё
 int MyString::MyStrLen() {
 	return strlen(str);
 }
-
-// Объединение строк
+// РћР±СЉРµРґРёРЅРµРЅРёРµ СЃС‚СЂРѕРє
 void MyString::MyStrCat(MyString& b) {
 	int newLenght = lenght + b.lenght;
 	char* newStr = new char[newLenght + 1];
@@ -81,8 +92,7 @@ void MyString::MyStrCat(MyString& b) {
 	lenght = newLenght;
 	str = newStr;
 }
-
-// Удаляет указанный символ
+// РЈРґР°Р»СЏРµС‚ СѓРєР°Р·Р°РЅРЅС‹Р№ СЃРёРјРІРѕР»
 void MyString::MyDelChr(char c) {
 	char* NewStr = new char[strlen(str)];
 	
@@ -94,8 +104,7 @@ void MyString::MyDelChr(char c) {
 	lenght = strlen(str);
 	str = NewStr;
 }
-
-// Сравнение строк
+// РЎСЂР°РІРЅРµРЅРёРµ СЃС‚СЂРѕРє
 int MyString::MysStrCmp(MyString& b) {
 	if (strlen(str) < strlen(b.str))
 		return -1;
@@ -105,6 +114,8 @@ int MyString::MysStrCmp(MyString& b) {
 		return 0;
 }
 
+
+// Р“Р»СѓР±РѕРєРѕРµ РєРѕРїРёСЂРѕРІР°РЅРёРµ (РѕРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІРѕРµРЅРёСЏ)
 MyString& MyString::operator=(const MyString& right) {
 	if (this != &right) {
 		delete[] str; // 1
@@ -117,4 +128,36 @@ MyString& MyString::operator=(const MyString& right) {
 	}
 
 	return *this; // 3
+}
+
+
+// РђРєСЃРµСЃСЃРѕСЂС‹
+// РЎРµС‚С‚РµСЂ
+void MyString::SetStr(const char* st) {
+	str = new char[strlen(st) + 1];
+	strcpy_s(str, strlen(st) + 1, st);
+}
+
+// Р“РµС‚С‚РµСЂ
+char* MyString::GetStr() const {
+	return str;
+}
+
+
+// РџРµСЂРµРіСЂСѓР·РєР° РІРІРѕРґР°-РІС‹РІРѕРґР°
+ostream& operator<<(ostream& os, const MyString& obj) {
+	os << obj.GetStr() << endl;
+
+	return os;
+}
+istream& operator>>(istream& is, MyString& obj) {
+	cout << "istream& operator>>(istream& is, MyString& obj)" << endl;
+
+	char buff[100];
+
+	cin.getline(buff, strlen(buff) + 1);
+
+	obj.SetStr(buff);
+
+	return is;
 }
