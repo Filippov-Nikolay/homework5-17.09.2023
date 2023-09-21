@@ -14,6 +14,7 @@ public:
 	MyString();
 	MyString(int);
 	MyString(const char*);
+	MyString(const MyString& obj);
 	~MyString();
 
 
@@ -37,11 +38,28 @@ public:
 	// Аксессоры
 	// Сеттер
 	void SetStr(const char*);
+	void SetLength(int );
 
 	// Геттер
 	char* GetStr() const;
+	int GetLength() const;
+
+
+	// Перегрузки
+	// Перегрузка индексирования []
+	char& operator[](const unsigned int);
+
+	// Перегрузка оператора вызова ()
+	void operator()(const char*);
 };
 
 // Перегрузка ввода-вывода
 ostream& operator<<(ostream&, const MyString&);
 istream& operator>>(istream&, MyString&);
+
+MyString operator+(const MyString, const char);
+MyString operator+(const char, const MyString);
+MyString operator+(const int, const MyString);
+MyString operator+(const MyString, const int);
+MyString operator++(MyString& obj, int);
+MyString& operator++(MyString& obj);
