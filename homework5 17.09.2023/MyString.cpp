@@ -31,6 +31,32 @@ MyString::~MyString() {
 	delete[] str;
 }
 
+// Конструктор переноса
+MyString::MyString(MyString&& obj) {
+	cout << "Move Constructor\n";
+	
+	str = obj.str;
+	obj.str = nullptr;
+
+	lenght = obj.lenght;
+	obj.lenght = 0;
+}
+
+
+MyString::MyString(initializer_list<char> a) {
+	cout << "Size -> " << a.size() << endl;
+	lenght = a.size();
+	str = new char[lenght + 1];
+	
+	for (auto x = a.begin(); x != a.end(); x++) {
+		*str = *x;
+		str++;
+	}
+
+	str -= lenght;
+	str[lenght] = '\0';
+}
+
 
 void MyString::Input() {
 	char buff[100];

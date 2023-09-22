@@ -17,6 +17,22 @@ public:
 	MyString(const MyString& obj);
 	~MyString();
 
+	// Конструктор переноса
+	MyString(MyString&&);
+	MyString& operator=(MyString&& obj) {
+		cout << "Move = \n";
+
+		str = obj.str;
+		obj.str = nullptr;
+
+		lenght = obj.lenght;
+		obj.lenght = 0;
+
+		return *this;
+	}
+
+	MyString(initializer_list<char> a);
+
 
 	void Input();
 	void Print() const;

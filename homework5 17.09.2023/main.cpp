@@ -6,6 +6,10 @@ using namespace std;
 int main() {
 	setlocale(0, "");
 	
+	MyString testArr = { 'H','e','l','l','o' };
+	testArr.Print();
+	cout << endl << endl;
+
 	MyString firstStr("Hello world - firstStr");
 	firstStr.Print();
 	cout << "\nfirstStr size: " << firstStr.MyStrLen() << endl << endl;
@@ -106,6 +110,7 @@ int main() {
 
 
 	// obj++
+	cout << "obj++" << endl;
 	MyString textT = text4++;
 	textT.Print();
 	cout << endl;
@@ -114,12 +119,22 @@ int main() {
 
 
 	// ++obj
+	cout << "++obj" << endl;
 	textT = ++text6;
 	textT.Print();
 	cout << endl;
 	text6.Print();
 	cout << endl << endl;
 	
+
+	// Конструктор переноса
+	cout << "Конструктор переноса: " << endl;
+	MyString moveStr;
+	moveStr = move(firstStr);
+	moveStr.Print();
+	cout << endl;
+	// firstStr.Print();
+
 	return 0;
 }
 
